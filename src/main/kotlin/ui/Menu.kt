@@ -17,7 +17,7 @@ fun showMainMenu(): MenuOption {
         when (readln().trim()) {
             "1" -> return MenuOption.PLAY
             "2" -> return MenuOption.EXIT
-            else -> println("Opción inválida. Por favor, elige 1 o 2.")
+            else -> println("Opción inválida. Por favor, elige 1 (Jugar) o 2 (Salir).")
         }
     }
 }
