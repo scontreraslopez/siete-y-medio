@@ -44,7 +44,7 @@ object GameController {
 
                     println("Turno del Jugador 2")
                     player2Cards.add(deck.drawCard())
-                    player2Score += player1Cards.last().value // la ultima carta
+                    player2Score += player2Cards.last().value // la ultima carta
                     println("Jugador 2 ha recibido: ${player2Cards.last().cardName} y su puntuación es: $player2Score")
 
                     // Otra guarrería que habría que mover luego
