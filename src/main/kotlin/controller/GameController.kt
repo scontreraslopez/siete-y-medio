@@ -26,6 +26,10 @@ object GameController {
                     var player2Cards = mutableListOf<Card>()
 
 
+                    // Guarrerías para controlar el flujo del juego
+                    var isPlayer1Done = false
+                    var isPlayer2Done = false
+
                     // Pongamos en borrador la lógica aquí.
                     // Turno del jugador1, se le reparte una carta, se le pregunta si quiere otra, etc.
                     // Sí se ha pasado el sistema de juego le dirá que ha perdido y se acabará su turno
@@ -35,11 +39,50 @@ object GameController {
 
                     // Vamos al lio...
                     println("Turno del Jugador 1")
+
+                    // INICIO BLOQUE COGER CARTA
                     player1Cards.add(deck.drawCard())
                     player1Score += player1Cards.last().value // la ultima carta
 
                     // Linea debug
                     println("Jugador 1 ha recibido: ${player1Cards.last().cardName} y su puntuación es: $player1Score")
+
+                    //comprobar si se ha pasado
+                    (player1Score > 7.5).takeIf { it }?.let {
+                        println("Jugador 1 se ha pasado de 7.5")
+                        isPlayer1Done = true
+                    }
+                    // FIN BLOQUE COGER CARTA
+
+
+                    while (!isPlayer1Done) {
+                        println("Jugador 1, ¿quieres otra carta? (s/n)")
+                        when (readln().trim().lowercase()) {
+                            "s" -> {
+                                println ("Jugador 1 quiere más cartas")
+
+                                player1Cards.add(deck.drawCard())
+                                player1Score += player1Cards.last().value // la ultima carta
+
+                                // Linea debug
+                                println("Jugador 1 ha recibido: ${player1Cards.last().cardName} y su puntuación es: $player1Score")
+
+                                //comprobar si se ha pasado
+                                (player1Score > 7.5).takeIf { it }?.let {
+                                    println("Jugador 1 se ha pasado de 7.5")
+                                    isPlayer1Done = true
+                                }
+
+                            }
+                            "n" -> {
+                                println ("Jugador 1 no quiere más cartas")
+                                isPlayer1Done = true
+                            }
+                            else -> {
+                                println("Opción inválida. Por favor, responde con 's' o 'n'.")
+                            }
+                        }
+                    }
 
 
                     println("Turno del Jugador 2")
