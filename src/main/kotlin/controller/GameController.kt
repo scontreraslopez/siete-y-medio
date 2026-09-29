@@ -90,6 +90,36 @@ object GameController {
                     player2Score += player2Cards.last().value // la ultima carta
                     println("Jugador 2 ha recibido: ${player2Cards.last().cardName} y su puntuación es: $player2Score")
 
+                    while (!isPlayer2Done) {
+                        println("Jugador 2, ¿quieres otra carta? (s/n)")
+                        when (readln().trim().lowercase()) {
+                            "s" -> {
+                                println ("Jugador 2 quiere más cartas")
+
+                                player2Cards.add(deck.drawCard())
+                                player2Score += player2Cards.last().value // la ultima carta
+
+                                // Linea debug
+                                println("Jugador 2 ha recibido: ${player2Cards.last().cardName} y su puntuación es: $player2Score")
+
+                                //comprobar si se ha pasado
+                                (player2Score > 7.5).takeIf { it }?.let {
+                                    println("Jugador 2 se ha pasado de 7.5")
+                                    isPlayer2Done = true
+                                }
+
+                            }
+                            "n" -> {
+                                println ("Jugador 2 no quiere más cartas")
+                                isPlayer2Done = true
+                            }
+                            else -> {
+                                println("Opción inválida. Por favor, responde con 's' o 'n'.")
+                            }
+                        }
+                    }
+
+
                     // Otra guarrería que habría que mover luego
                     when {
                         player1Score > 7.5 && player2Score > 7.5 -> println("Ambos jugadores se han pasado de 7.5. Empate.")
